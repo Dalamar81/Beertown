@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beertown.Web", "Beertown.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beertown.Web.Tests", "Beertown.Web.Tests\Beertown.Web.Tests.csproj", "{28EE5EA4-5050-4CC8-8346-C16C8D6D448B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beertown.Domain", "Beertown.Domain\Beertown.Domain.csproj", "{ABEC43D2-8109-40A2-87F4-F339D3183608}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{28EE5EA4-5050-4CC8-8346-C16C8D6D448B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28EE5EA4-5050-4CC8-8346-C16C8D6D448B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28EE5EA4-5050-4CC8-8346-C16C8D6D448B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABEC43D2-8109-40A2-87F4-F339D3183608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABEC43D2-8109-40A2-87F4-F339D3183608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABEC43D2-8109-40A2-87F4-F339D3183608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABEC43D2-8109-40A2-87F4-F339D3183608}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
