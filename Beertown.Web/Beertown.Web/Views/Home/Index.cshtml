@@ -1,31 +1,73 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model Beertown.Web.Models.BeertownModel
+@{
+    ViewBag.Title = "Метрополитен Биртауна";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col-md-8">
+        <h2>@ViewBag.Title</h2>
+        <figure>
+            <figcaption>Схема линий</figcaption>
+            <img src="~/Content/Images/MetroMap.jpg" class="img-responsive" />
+        </figure>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-4 text-center">
+        <h3>Поиск маршрута</h3>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.StartStationId)
+                @Html.DropDownListFor(m => m.StartStationId, Model.Stations, new { @class = "form-control selectpicker form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.DestinationStationId)
+                @Html.DropDownListFor(m => m.DestinationStationId, Model.Stations, new { @class = "form-control selectpicker form-control" })
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Рассчитать маршрут" />
+            </div>
+
+            if (Model.Path != null)
+            {
+                <div class="panel panel-default form-group">
+                    <div class="panel-heading">маршрут</div>
+                    <div class="panel-body">
+                        @if (Model.Path.Count == 0)
+                        {
+                            <p>Маршрут пуст.</p>
+                        }
+                        else
+                        {
+                            foreach (var p in Model.Path)
+                            {
+                                <div class="row">
+                                    <div class="col-xs-2 text-right glyphicon glyphicon-option-vertical" style="color: @p.Station.LineColorCode"></div>
+                                    <div class="col-xs-6 text-left">@p.Station.StationName</div>
+                                    <div class="col-xs-4">@p.Duration мин.</div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="panel panel-default form-group">
+                    <div class="panel-heading">Стоимость проезда</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            @foreach (var c in Model.Cost)
+                            {
+                                <div class="col-xs-2 text-right glyphicon glyphicon-option-vertical" style="color: @c.LineColorCode"></div>
+                                <div class="col-xs-8 text-left">@c.CostItem</div>
+                                <div class="col-xs-2">@c.Cost р.</div>
+                            }
+                        </div>
+                    </div>
+                    <div class="panel-footer">Общая стоимость: @Model.Cost.Sum(p => p.Cost) р.</div>
+                </div>
+            }
+        }
     </div>
 </div>
