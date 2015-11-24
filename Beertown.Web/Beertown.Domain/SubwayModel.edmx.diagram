@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1480087b126f408bae08314f5d83202f" Name="Diagram1">
+        <EntityTypeShape EntityType="SubwayDatabaseModel.ConnectingPassage" Width="1.5" PointX="5.25" PointY="4.125" />
+        <EntityTypeShape EntityType="SubwayDatabaseModel.Haul" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="SubwayDatabaseModel.Line" Width="1.5" PointX="0.75" PointY="4.375" />
+        <EntityTypeShape EntityType="SubwayDatabaseModel.Station" Width="1.5" PointX="3" PointY="2.5" />
+        <AssociationConnector Association="SubwayDatabaseModel.FK_CONNECTI_REF_5_STATION" />
+        <AssociationConnector Association="SubwayDatabaseModel.FK_CONNECTI_REF_6_STATION" />
+        <AssociationConnector Association="SubwayDatabaseModel.FK_HAUL_REF_3_STATION" />
+        <AssociationConnector Association="SubwayDatabaseModel.FK_HAUL_REF_4_STATION" />
+        <AssociationConnector Association="SubwayDatabaseModel.FK_STATION_REF_1_LINE" />
+        <EntityTypeShape EntityType="SubwayDatabaseModel.LineTarif" Width="1.5" PointX="3" PointY="6.125" />
+        <AssociationConnector Association="SubwayDatabaseModel.FK_LINETARI_REF_2_LINE" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

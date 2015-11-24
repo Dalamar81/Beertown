@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище SubwayDatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ConnectingPassage">
+          <Key>
+            <PropertyRef Name="ConnectingPassageId" />
+          </Key>
+          <Property Name="ConnectingPassageId" Type="int" Nullable="false" />
+          <Property Name="Station1Id" Type="int" Nullable="false" />
+          <Property Name="Station2Id" Type="int" Nullable="false" />
+          <Property Name="DurationMins" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Haul">
+          <Key>
+            <PropertyRef Name="HaulId" />
+          </Key>
+          <Property Name="HaulId" Type="int" Nullable="false" />
+          <Property Name="Station1Id" Type="int" Nullable="false" />
+          <Property Name="Station2Id" Type="int" Nullable="false" />
+          <Property Name="DurationMins" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Line">
+          <Key>
+            <PropertyRef Name="LineId" />
+          </Key>
+          <Property Name="LineId" Type="int" Nullable="false" />
+          <Property Name="LineName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="LineColorCode" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="LineNameDativeCase" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LineTarif">
+          <Key>
+            <PropertyRef Name="LineTarifId" />
+          </Key>
+          <Property Name="LineTarifId" Type="int" Nullable="false" />
+          <Property Name="LineId" Type="int" Nullable="false" />
+          <Property Name="ActualDate" Type="date" Nullable="false" />
+          <Property Name="ActualEndDate" Type="date" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="StationId" />
+          </Key>
+          <Property Name="StationId" Type="int" Nullable="false" />
+          <Property Name="LineId" Type="int" Nullable="false" />
+          <Property Name="StationName" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CONNECTI_REF_5_STATION">
+          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="ConnectingPassage" Type="Self.ConnectingPassage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="ConnectingPassage">
+              <PropertyRef Name="Station1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONNECTI_REF_6_STATION">
+          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="ConnectingPassage" Type="Self.ConnectingPassage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="ConnectingPassage">
+              <PropertyRef Name="Station2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HAUL_REF_3_STATION">
+          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="Haul" Type="Self.Haul" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="Haul">
+              <PropertyRef Name="Station1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HAUL_REF_4_STATION">
+          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="Haul" Type="Self.Haul" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="Haul">
+              <PropertyRef Name="Station2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LINETARI_REF_2_LINE">
+          <End Role="Line" Type="Self.Line" Multiplicity="1" />
+          <End Role="LineTarif" Type="Self.LineTarif" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Line">
+              <PropertyRef Name="LineId" />
+            </Principal>
+            <Dependent Role="LineTarif">
+              <PropertyRef Name="LineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STATION_REF_1_LINE">
+          <End Role="Line" Type="Self.Line" Multiplicity="1" />
+          <End Role="Station" Type="Self.Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Line">
+              <PropertyRef Name="LineId" />
+            </Principal>
+            <Dependent Role="Station">
+              <PropertyRef Name="LineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище SubwayDatabaseModelContainer">
+          <EntitySet Name="ConnectingPassage" EntityType="Self.ConnectingPassage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Haul" EntityType="Self.Haul" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Line" EntityType="Self.Line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LineTarif" EntityType="Self.LineTarif" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CONNECTI_REF_5_STATION" Association="Self.FK_CONNECTI_REF_5_STATION">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="ConnectingPassage" EntitySet="ConnectingPassage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONNECTI_REF_6_STATION" Association="Self.FK_CONNECTI_REF_6_STATION">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="ConnectingPassage" EntitySet="ConnectingPassage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HAUL_REF_3_STATION" Association="Self.FK_HAUL_REF_3_STATION">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="Haul" EntitySet="Haul" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HAUL_REF_4_STATION" Association="Self.FK_HAUL_REF_4_STATION">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="Haul" EntitySet="Haul" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LINETARI_REF_2_LINE" Association="Self.FK_LINETARI_REF_2_LINE">
+            <End Role="Line" EntitySet="Line" />
+            <End Role="LineTarif" EntitySet="LineTarif" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STATION_REF_1_LINE" Association="Self.FK_STATION_REF_1_LINE">
+            <End Role="Line" EntitySet="Line" />
+            <End Role="Station" EntitySet="Station" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SubwayDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SubwayDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ConnectingPassages" EntityType="SubwayDatabaseModel.ConnectingPassage" />
+          <EntitySet Name="Hauls" EntityType="SubwayDatabaseModel.Haul" />
+          <EntitySet Name="Lines" EntityType="SubwayDatabaseModel.Line" />
+          <EntitySet Name="Stations" EntityType="SubwayDatabaseModel.Station" />
+          <AssociationSet Name="FK_CONNECTI_REF_5_STATION" Association="SubwayDatabaseModel.FK_CONNECTI_REF_5_STATION">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="ConnectingPassage" EntitySet="ConnectingPassages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONNECTI_REF_6_STATION" Association="SubwayDatabaseModel.FK_CONNECTI_REF_6_STATION">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="ConnectingPassage" EntitySet="ConnectingPassages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HAUL_REF_3_STATION" Association="SubwayDatabaseModel.FK_HAUL_REF_3_STATION">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="Haul" EntitySet="Hauls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HAUL_REF_4_STATION" Association="SubwayDatabaseModel.FK_HAUL_REF_4_STATION">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="Haul" EntitySet="Hauls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STATION_REF_1_LINE" Association="SubwayDatabaseModel.FK_STATION_REF_1_LINE">
+            <End Role="Line" EntitySet="Lines" />
+            <End Role="Station" EntitySet="Stations" />
+          </AssociationSet>
+          <EntitySet Name="LineTarifs" EntityType="SubwayDatabaseModel.LineTarif" />
+          <AssociationSet Name="FK_LINETARI_REF_2_LINE" Association="SubwayDatabaseModel.FK_LINETARI_REF_2_LINE">
+            <End Role="Line" EntitySet="Lines" />
+            <End Role="LineTarif" EntitySet="LineTarifs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ConnectingPassage">
+          <Key>
+            <PropertyRef Name="ConnectingPassageId" />
+          </Key>
+          <Property Name="ConnectingPassageId" Type="Int32" Nullable="false" />
+          <Property Name="Station1Id" Type="Int32" Nullable="false" />
+          <Property Name="Station2Id" Type="Int32" Nullable="false" />
+          <Property Name="DurationMins" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
+          <NavigationProperty Name="StationIn" Relationship="SubwayDatabaseModel.FK_CONNECTI_REF_5_STATION" FromRole="ConnectingPassage" ToRole="Station" />
+          <NavigationProperty Name="StationOut" Relationship="SubwayDatabaseModel.FK_CONNECTI_REF_6_STATION" FromRole="ConnectingPassage" ToRole="Station" />
+        </EntityType>
+        <EntityType Name="Haul">
+          <Key>
+            <PropertyRef Name="HaulId" />
+          </Key>
+          <Property Name="HaulId" Type="Int32" Nullable="false" />
+          <Property Name="Station1Id" Type="Int32" Nullable="false" />
+          <Property Name="Station2Id" Type="Int32" Nullable="false" />
+          <Property Name="DurationMins" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <NavigationProperty Name="StationIn" Relationship="SubwayDatabaseModel.FK_HAUL_REF_3_STATION" FromRole="Haul" ToRole="Station" />
+          <NavigationProperty Name="StationOut" Relationship="SubwayDatabaseModel.FK_HAUL_REF_4_STATION" FromRole="Haul" ToRole="Station" />
+        </EntityType>
+        <EntityType Name="Line">
+          <Key>
+            <PropertyRef Name="LineId" />
+          </Key>
+          <Property Name="LineId" Type="Int32" Nullable="false" />
+          <Property Name="LineName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Stations" Relationship="SubwayDatabaseModel.FK_STATION_REF_1_LINE" FromRole="Line" ToRole="Station" />
+          <NavigationProperty Name="LineTarifs" Relationship="SubwayDatabaseModel.FK_LINETARI_REF_2_LINE" FromRole="Line" ToRole="LineTarif" />
+          <Property Name="LineColorCode" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LineNameDativeCase" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="StationId" />
+          </Key>
+          <Property Name="StationId" Type="Int32" Nullable="false" />
+          <Property Name="LineId" Type="Int32" Nullable="false" />
+          <Property Name="StationName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ConnectingPassagesOut" Relationship="SubwayDatabaseModel.FK_CONNECTI_REF_5_STATION" FromRole="Station" ToRole="ConnectingPassage" />
+          <NavigationProperty Name="ConnectingPassagesIn" Relationship="SubwayDatabaseModel.FK_CONNECTI_REF_6_STATION" FromRole="Station" ToRole="ConnectingPassage" />
+          <NavigationProperty Name="HaulsOut" Relationship="SubwayDatabaseModel.FK_HAUL_REF_3_STATION" FromRole="Station" ToRole="Haul" />
+          <NavigationProperty Name="HaulsIn" Relationship="SubwayDatabaseModel.FK_HAUL_REF_4_STATION" FromRole="Station" ToRole="Haul" />
+          <NavigationProperty Name="Line" Relationship="SubwayDatabaseModel.FK_STATION_REF_1_LINE" FromRole="Station" ToRole="Line" />
+        </EntityType>
+        <Association Name="FK_CONNECTI_REF_5_STATION">
+          <End Type="SubwayDatabaseModel.Station" Role="Station" Multiplicity="1" />
+          <End Type="SubwayDatabaseModel.ConnectingPassage" Role="ConnectingPassage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="ConnectingPassage">
+              <PropertyRef Name="Station1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONNECTI_REF_6_STATION">
+          <End Type="SubwayDatabaseModel.Station" Role="Station" Multiplicity="1" />
+          <End Type="SubwayDatabaseModel.ConnectingPassage" Role="ConnectingPassage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="ConnectingPassage">
+              <PropertyRef Name="Station2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HAUL_REF_3_STATION">
+          <End Type="SubwayDatabaseModel.Station" Role="Station" Multiplicity="1" />
+          <End Type="SubwayDatabaseModel.Haul" Role="Haul" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="Haul">
+              <PropertyRef Name="Station1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HAUL_REF_4_STATION">
+          <End Type="SubwayDatabaseModel.Station" Role="Station" Multiplicity="1" />
+          <End Type="SubwayDatabaseModel.Haul" Role="Haul" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationId" />
+            </Principal>
+            <Dependent Role="Haul">
+              <PropertyRef Name="Station2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STATION_REF_1_LINE">
+          <End Type="SubwayDatabaseModel.Line" Role="Line" Multiplicity="1" />
+          <End Type="SubwayDatabaseModel.Station" Role="Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Line">
+              <PropertyRef Name="LineId" />
+            </Principal>
+            <Dependent Role="Station">
+              <PropertyRef Name="LineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LineTarif">
+          <Key>
+            <PropertyRef Name="LineTarifId" />
+          </Key>
+          <Property Name="LineTarifId" Type="Int32" Nullable="false" />
+          <Property Name="LineId" Type="Int32" Nullable="false" />
+          <Property Name="ActualDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ActualEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
+          <NavigationProperty Name="Line" Relationship="SubwayDatabaseModel.FK_LINETARI_REF_2_LINE" FromRole="LineTarif" ToRole="Line" />
+        </EntityType>
+        <Association Name="FK_LINETARI_REF_2_LINE">
+          <End Type="SubwayDatabaseModel.Line" Role="Line" Multiplicity="1" />
+          <End Type="SubwayDatabaseModel.LineTarif" Role="LineTarif" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Line">
+              <PropertyRef Name="LineId" />
+            </Principal>
+            <Dependent Role="LineTarif">
+              <PropertyRef Name="LineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SubwayDatabaseModelContainer" CdmEntityContainer="SubwayDatabaseEntities">
+          <EntitySetMapping Name="ConnectingPassages">
+            <EntityTypeMapping TypeName="SubwayDatabaseModel.ConnectingPassage">
+              <MappingFragment StoreEntitySet="ConnectingPassage">
+                <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
+                <ScalarProperty Name="Station2Id" ColumnName="Station2Id" />
+                <ScalarProperty Name="Station1Id" ColumnName="Station1Id" />
+                <ScalarProperty Name="ConnectingPassageId" ColumnName="ConnectingPassageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hauls">
+            <EntityTypeMapping TypeName="SubwayDatabaseModel.Haul">
+              <MappingFragment StoreEntitySet="Haul">
+                <ScalarProperty Name="DurationMins" ColumnName="DurationMins" />
+                <ScalarProperty Name="Station2Id" ColumnName="Station2Id" />
+                <ScalarProperty Name="Station1Id" ColumnName="Station1Id" />
+                <ScalarProperty Name="HaulId" ColumnName="HaulId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lines">
+            <EntityTypeMapping TypeName="SubwayDatabaseModel.Line">
+              <MappingFragment StoreEntitySet="Line">
+                <ScalarProperty Name="LineNameDativeCase" ColumnName="LineNameDativeCase" />
+                <ScalarProperty Name="LineColorCode" ColumnName="LineColorCode" />
+                <ScalarProperty Name="LineName" ColumnName="LineName" />
+                <ScalarProperty Name="LineId" ColumnName="LineId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stations">
+            <EntityTypeMapping TypeName="SubwayDatabaseModel.Station">
+              <MappingFragment StoreEntitySet="Station">
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+                <ScalarProperty Name="LineId" ColumnName="LineId" />
+                <ScalarProperty Name="StationId" ColumnName="StationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LineTarifs">
+            <EntityTypeMapping TypeName="SubwayDatabaseModel.LineTarif">
+              <MappingFragment StoreEntitySet="LineTarif">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+                <ScalarProperty Name="ActualDate" ColumnName="ActualDate" />
+                <ScalarProperty Name="LineId" ColumnName="LineId" />
+                <ScalarProperty Name="LineTarifId" ColumnName="LineTarifId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
