@@ -68,9 +68,11 @@ namespace Beertown.Web.Controllers
         [HttpPost]
         public ActionResult Index(BeertownModel model)
         {
+            // Составляем граф по данным из БД:
             Dictionary<int, ISet<PathFinder.Edge>> graph = CreateGraph();
 
             PathFinder pathFinder = new PathFinder(graph, model.StartStationId);
+            // TODO: Хорошо бы кэшировать объект pathFinder для одинаковых значений StartStationId
 
             // Заполняем путь для отображения.
             model.Path = new List<BeertownModel.PathNode>();

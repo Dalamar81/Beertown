@@ -5,6 +5,9 @@ using System.Web;
 
 namespace Beertown.Web
 {
+    /// <summary>
+    /// Реализация алгоритма Дейкстры для поиска пути во взмешенном графе
+    /// </summary>
     public class PathFinder
     {
         public class Edge
@@ -16,8 +19,17 @@ namespace Beertown.Web
 
         Dictionary<int, ISet<Edge>> _Graph;
         Dictionary<int, Edge> _ClosestNodes;
+
+        /// <summary>
+        /// Ближаёшие к начальной вершине рёбра вершин. ClosedNodes[id] означает бижайшее ребро к начальной вершине для вершины с идентификатором id.
+        /// </summary>
         public Dictionary<int, Edge> ClosedNodes { get { return _ClosestNodes; } }
 
+        /// <summary>
+        /// Инициализация и выполнение поиска
+        /// </summary>
+        /// <param name="graph">Граф в виде словаря &lt;идентификатор вершины, набор исходящих рёбер&gt;</param>
+        /// <param name="startNode">Идентификатор начальной вершины</param>
         public PathFinder(Dictionary<int, ISet<Edge>> graph, int startNode)
         {
             _Graph = graph;
